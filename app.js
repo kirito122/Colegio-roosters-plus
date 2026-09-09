@@ -114,7 +114,7 @@ $('#overviewToggle').addEventListener('click', () => {
   const isNowVisible = overview.hidden;
   overview.hidden = !isNowVisible;
   $('#overviewToggle').textContent = isNowVisible ? 'Verberg dagoverzicht' : 'Toon dagoverzicht';
-  $('#overviewToggle').setAttribute('aria-expanded', String(isNowVisible));
+  $('#overviewToggle').setAttribute('aria-expanded', String(!isNowVisible));
 });
 $('#clear').addEventListener('click', () => { $('#daySelect').value=''; $('#periodSelect').value=''; $('#roomSelect').value=''; $('#teacherSelect').value=''; $('#subjectSelect').value=''; $('#freeOnly').checked=false; updateSummary(); draw(); });
 $('#refresh').addEventListener('click', async () => { await request('/api/refresh', {method:'POST'}); loadSchedule(); });
