@@ -32,7 +32,12 @@ function parseSchedule(html, klas) {
 
 function normalizeSubject(value) {
   const subject = value.trim().replace(/\s+/g, ' ');
-  const labels = { 'en EB': 'en', 'ne EB': 'ne', 'wi EB': 'wi B', 'wi EA': 'wi A' };
+  const labels = {
+    'en eb': 'en',
+    'ne eb': 'ne',
+    'wi eb': 'wi B',
+    'wi ea': 'wi A'
+  };
   return labels[subject.toLowerCase()] || subject;
 }
 
