@@ -80,14 +80,14 @@ function updateSummary() {
 }
 
 function draw() {
-  const teacher = $('#teacherSelect').value, subject = $('#subjectSelect').value, room = $('#roomSelect').value, dayFilter = $('#daySelect').value, period = $('#periodSelect').value, freeOnly = $('#freeOnly').checked;
+  const teacher = $('#teacherSelect').value, subject = $('#subjectSelect').value, room = $('#roomSelect').value, dayFilter = $('#daySelect').value, period = $('#periodSelect').value, freeOnly = $([...]);
   const grid = document.createElement('div'); grid.className = 'week';
   grid.append(document.createElement('div'));
   days.forEach(day => { const item=document.createElement('div'); item.className=`day ${dayFilter && day !== dayFilter ? 'dim' : ''}`; item.textContent=day; grid.append(item); });
   let shown = 0;
   for (const row of lessons) {
     const time = document.createElement('div'); time.className='time'; time.textContent=row.time; grid.append(time);
-    row.cells.forEach((slot, dayIndex) => { const isActiveDay = !dayFilter || days[dayIndex] === dayFilter; const isActivePeriod = !period || Number(period) === lessons.indexOf(row); const visible = isActiveDay && isActivePeriod && (slot.some(x => (!teacher || x.teacher === teacher) && (!subject || x.subject === subject) && (!room || x.room === room)) || !freeOnly); const cell = document.createElement('div'); if (visible) shown++; cell.className = `cell ${!visible ? 'hidden' : ''}`; slot.forEach(lesson => { if ((!teacher || lesson.teacher === teacher) && (!subject || lesson.subject === subject) && (!room || lesson.room === room)) { const item = document.createElement('div'); item.className = 'item'; item.innerHTML = `<b>${lesson.subject}</b> ${lesson.room}<small>${lesson.teacher}</small>`; cell.append(item); } }); grid.append(cell); });
+    row.cells.forEach((slot, dayIndex) => { const isActiveDay = !dayFilter || days[dayIndex] === dayFilter; const isActivePeriod = !period || Number(period) === lessons.indexOf(row); const visible[...]);
   }
   $('#schedule').replaceChildren(shown ? grid : Object.assign(document.createElement('p'), { className:'empty', textContent:'Geen lessen gevonden met deze filters.' }));
 }
@@ -96,7 +96,7 @@ async function loadSchedule() {
   const klas = $('#classSelect').value; if (!klas) return;
   const isAllClasses = klas === 'all';
   $('#status').textContent = isAllClasses ? 'Alle klassen worden opgehaald. Dit kan de eerste keer even duren…' : `${klas} wordt opgehaald…`;
-  try { const data = isAllClasses ? await request('/api/all-schedules') : await request(`/api/schedule?class=${encodeURIComponent(klas)}`); lessons = isAllClasses ? mergeSchedules(data.schedules) : parseSchedule(data.html, klas); updateFilterOptions(); updateSummary(); draw(); $('#status').textContent = ''; }
+  try { const data = isAllClasses ? await request('/api/all-schedules') : await request(`/api/schedule?class=${encodeURIComponent(klas)}`); lessons = isAllClasses ? mergeSchedules(data.schedules) [...]);
   catch (error) { $('#schedule').innerHTML = `<p class="empty">${error.message}</p>`; $('#status').textContent = 'Rooster niet beschikbaar.'; }
 }
 
@@ -116,6 +116,6 @@ $('#overviewToggle').addEventListener('click', () => {
   $('#overviewToggle').textContent = isOpen ? 'Verberg dagoverzicht' : 'Toon dagoverzicht';
   $('#overviewToggle').setAttribute('aria-expanded', String(isOpen));
 });
-$('#clear').addEventListener('click', () => { $('#daySelect').value=''; $('#periodSelect').value=''; $('#roomSelect').value=''; $('#teacherSelect').value=''; $('#subjectSelect').value=''; $('#freeOnly').checked=false; updateSummary(); draw(); });
+$('#clear').addEventListener('click', () => { $('#daySelect').value=''; $('#periodSelect').value=''; $('#roomSelect').value=''; $('#teacherSelect').value=''; $('#subjectSelect').value=''; $('#fre[...]);
 $('#refresh').addEventListener('click', async () => { await request('/api/refresh', {method:'POST'}); loadSchedule(); });
 init().catch(error => { $('#status').textContent=error.message; });
