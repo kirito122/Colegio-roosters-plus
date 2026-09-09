@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colegio Arubano Rooster+</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand"><img class="school-logo" src="https://colegioarubano.aw/wordpress/wp-content/uploads/2025/03/logo.png" alt="Logo Colegio Arubano" /><div><p>COLEGIO ARUBANO</p><h1>Rooster<span>+</span></h1></div></div>
+      <button class="refresh" id="refresh" title="Haal de nieuwste roostergegevens op">↻ <span>Rooster bijwerken</span></button>
+    </header>
+    <main>
+      <section class="intro"><p class="eyebrow">LESROOSTER</p><h2>Vind je volgende les.</h2><p>Bekijk het weekrooster van jouw klas en filter op docent of vak.</p></section>
+      <section class="controls" aria-label="Roosterfilters">
+        <label> Klas <select id="classSelect"><option>Laden…</option></select></label>
+        <label> Dag <select id="daySelect"><option value="">Alle dagen</option><option>Maandag</option><option>Dinsdag</option><option>Woensdag</option><option>Donderdag</option><option>Vrijdag</option></select></label>
+        <label> Lesuur <select id="periodSelect"><option value="">Alle lesuren</option></select></label>
+        <label> Lokaal <select id="roomSelect"><option value="">Alle lokalen</option></select></label>
+        <label> Docent <select id="teacherSelect"><option value="">Alle docenten</option></select></label>
+        <label> Vak <select id="subjectSelect"><option value="">Alle vakken</option></select></label>
+        <label class="toggle"><input type="checkbox" id="freeOnly" /> Alleen vrije lesuren</label>
+        <button id="clear">Filters herstellen</button>
+      </section>
+      <div class="status" id="status" aria-live="polite">Kies een klas om het rooster te zien.</div>
+      <section class="day-summary" aria-label="Dagoverzicht van de klas">
+        <div><p class="eyebrow">DAGOVERZICHT</p><h3 id="summaryTitle">Kies een klas</h3></div>
+        <div id="summaryCards" class="summary-cards"></div>
+      </section>
+      <section id="schedule" class="schedule" aria-label="Weekrooster"></section>
+      <footer>Gegevens komen van het openbare rooster van Colegio Arubano. Laatst opgehaald: <span id="updated">—</span></footer>
+    </main>
+    <template id="lessonTemplate"><article class="lesson"><b class="subject"></b><span class="student-class"></span><span class="teacher"></span><span class="room"></span></article></template>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
