@@ -32,13 +32,13 @@ function parseSchedule(html, klas) {
 
 function normalizeSubject(value) {
   const subject = value.trim().replace(/\s+/g, ' ');
-  const labels = {
-    'en eb': 'en',
-    'ne eb': 'ne',
-    'wi eb': 'wi B',
-    'wi ea': 'wi A'
-  };
-  return labels[subject.toLowerCase()] || subject;
+
+  if (/^en\s*eb$/i.test(subject)) return 'en';
+  if (/^ne\s*eb$/i.test(subject)) return 'ne';
+  if (/^wi\s*eb$/i.test(subject)) return 'wi B';
+  if (/^wi\s*ea$/i.test(subject)) return 'wi A';
+
+  return subject;
 }
 
 function mergeSchedules(schedules) {
