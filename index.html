@@ -24,7 +24,8 @@
         <button id="clear">Filters herstellen</button>
       </section>
       <div class="status" id="status" aria-live="polite">Kies een klas om het rooster te zien.</div>
-      <section class="day-summary" aria-label="Dagoverzicht van de klas">
+      <button class="overview-toggle" id="overviewToggle" type="button" aria-controls="dayOverview" aria-expanded="false">Toon dagoverzicht</button>
+      <section class="day-summary" id="dayOverview" aria-label="Dagoverzicht van de klas" hidden>
         <div><p class="eyebrow">DAGOVERZICHT</p><h3 id="summaryTitle">Kies een klas</h3></div>
         <div id="summaryCards" class="summary-cards"></div>
       </section>

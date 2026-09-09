@@ -32,12 +32,11 @@ function parseSchedule(html, klas) {
 
 function normalizeSubject(value) {
   const subject = value.trim().replace(/\s+/g, ' ');
-
+  // The timetable is inconsistent about capitals and spaces in these labels.
   if (/^en\s*eb$/i.test(subject)) return 'en';
   if (/^ne\s*eb$/i.test(subject)) return 'ne';
   if (/^wi\s*eb$/i.test(subject)) return 'wi B';
   if (/^wi\s*ea$/i.test(subject)) return 'wi A';
-
   return subject;
 }
 
@@ -110,6 +109,13 @@ async function init() {
 $('#classSelect').addEventListener('change', () => { localStorage.setItem('colegio-class', $('#classSelect').value); loadSchedule(); });
 ['roomSelect', 'teacherSelect', 'subjectSelect', 'periodSelect', 'freeOnly'].forEach(id => $(`#${id}`).addEventListener('change', () => { updateSummary(); draw(); }));
 $('#daySelect').addEventListener('change', () => { updateSummary(); draw(); });
+$('#overviewToggle').addEventListener('click', () => {
+  const overview = $('#dayOverview');
+  const isNowVisible = overview.hidden;
+  overview.hidden = !isNowVisible;
+  $('#overviewToggle').textContent = isNowVisible ? 'Verberg dagoverzicht' : 'Toon dagoverzicht';
+  $('#overviewToggle').setAttribute('aria-expanded', String(isNowVisible));
+});
 $('#clear').addEventListener('click', () => { $('#daySelect').value=''; $('#periodSelect').value=''; $('#roomSelect').value=''; $('#teacherSelect').value=''; $('#subjectSelect').value=''; $('#freeOnly').checked=false; updateSummary(); draw(); });
 $('#refresh').addEventListener('click', async () => { await request('/api/refresh', {method:'POST'}); loadSchedule(); });
 init().catch(error => { $('#status').textContent=error.message; });
